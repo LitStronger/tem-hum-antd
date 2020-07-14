@@ -1,6 +1,6 @@
 <template>
   <a-layout id="components-layout-demo-responsive">
-    <a-layout-sider
+    <!-- <a-layout-sider
       breakpoint="lg"
       collapsed-width="0"
       @collapse="onCollapse"
@@ -22,11 +22,6 @@
         <a-icon type="home" />
           <span class="nav-text"> 概况 </span>
         </a-menu-item>
-        <!-- <a-menu-item key="2">
-          <a-icon type="user" />
-          <span class="nav-text"> 我的设备 </span>
-          <a-icon  type="right" />
-        </a-menu-item> -->
         <a-sub-menu key="17">
           <span slot="title"><a-icon type="user" /><span> 我的设备 </span></span>
           <a-menu-item key="1">
@@ -77,9 +72,9 @@
 
         </a-sub-menu>
       </a-menu>
-    </a-layout-sider>
+    </a-layout-sider> -->
     <a-layout>
-      <a-layout-header :style="{ background: '#fff', padding: 0 }">
+      <!-- <a-layout-header :style="{ background: '#fff', padding: 0 }">
         <a-avatar
           :src="logoSrc"
           shape="square"
@@ -87,17 +82,59 @@
         >
         </a-avatar>
         <span style="font-size: 18px">鸱吻云平台</span>
-      </a-layout-header>
-      <router-view></router-view>
-      <a-layout-footer style="textAlign: center">
+      </a-layout-header> -->
+      <a-layout-content :style="{ margin: '24px 16px 0', minHeight: '80vh' }">
+        <!-- <div :style="{ padding: '24px', background: '#fff', minHeight: '80vh' }"> -->
+            <a-card :style="{ background: 'fff' }" title="设备总览">
+
+               <a-row type="flex" justify="space-around">
+                <a-col :span="1"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="2"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="2"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="2"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="1"></a-col>
+                 <a-col :span="1"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="2"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="2"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="2"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="1"></a-col>
+              </a-row>
+          </a-card>
+        <!-- </div> -->
+      </a-layout-content>
+      <!-- <a-layout-footer style="textAlign: center">
         鸱吻云科技 联系电话：xxxxx
-      </a-layout-footer>
+      </a-layout-footer> -->
     </a-layout>
   </a-layout>
 </template>
 <script>
 
-// import cardItem from './components/card-item'
+import cardItem from './components/card-item'
 
 export default {
   data () {
@@ -114,7 +151,7 @@ export default {
     },
   },
   components: {
-    // cardItem
+    cardItem
   }
 };
 </script>
