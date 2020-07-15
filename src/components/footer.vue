@@ -6,9 +6,9 @@
         </span>
        <span>首页</span>
       </span> -->
-     <span class="" :class="{on: '/overview'===$route.path}" @click="goTo('/overview')">
+     <span class="" :class="{on: '/device'===$route.path}" @click="goTo('/device')">
      <br>
-     <router-link :to="{ name: 'overview'}">User</router-link>
+     <router-link :to="{ name: 'device'}">User</router-link>
      <br>
      <router-link :to="{ name: 'index'}">index</router-link>
 

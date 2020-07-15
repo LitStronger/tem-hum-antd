@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 
-const overview = ()=>import('../src/overview')
+const device = ()=>import('../src/device')
 const index = ()=>import('../src/index')
 
 Vue.use(VueRouter); // 注册路由
@@ -10,15 +10,20 @@ Vue.use(VueRouter); // 注册路由
 export default new VueRouter({
     routes:[
         {
-            path:'/overview',
-            name: 'overview',
-            component: overview,
+            path: '/',
+            name: 'default',
+            component: index
         },
         {
             path:'/index',
             name: 'index',
             component: index,
-        }
+        },
+        {
+            path:'/device',
+            name: 'device',
+            component: device,
+        },
     ]
 })
 

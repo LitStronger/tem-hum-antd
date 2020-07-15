@@ -15,7 +15,7 @@
             style="backgroundColor:gray"
             src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" 
           />
-        <span class="avatar-text">用户0001</span>
+        <span class="avatar-text">{{user.name}}</span>
       </div>
       <a-menu theme="dark" mode="inline" :default-selected-keys="['16']">
         <a-menu-item key="16">
@@ -29,51 +29,51 @@
         </a-menu-item> -->
         <a-sub-menu key="17">
           <span slot="title"><a-icon type="user" /><span> 我的设备 </span></span>
-          <a-menu-item key="1">
-            deviece
+          <a-menu-item key="1" v-on:click="select(1)">
+            <router-link to="/device">deviece {{device[0].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="2">
-            deviece
+          <a-menu-item key="2" v-on:click="select(2)">
+            <router-link to="/device/2">deviece {{device[1].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="3">
-            deviece
+          <a-menu-item key="3" v-on:click="select(3)">
+            <router-link to="/device/3">deviece {{device[2].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="4">
-            deviece
+          <a-menu-item key="4" v-on:click="select(4)">
+            <router-link to="/device/4">deviece {{device[3].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="5">
-            deviece
+          <a-menu-item key="5" v-on:click="select(5)">
+            <router-link to="/device/5">deviece {{device[4].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="6">
-            deviece
+          <a-menu-item key="6" v-on:click="select(6)">
+            <router-link to="/device/6">deviece {{device[5].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="7">
-            deviece
+          <a-menu-item key="7" v-on:click="select(7)">
+            <router-link to="/device/7">deviece {{device[6].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="8">
-            deviece
+          <a-menu-item key="8" v-on:click="select(8)">
+            <router-link to="/device/8">deviece {{device[7].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="9">
-            deviece
+          <a-menu-item key="9" v-on:click="select(9)">
+            <router-link to="/device/9">deviece {{device[8].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="10">
-            deviece
+          <a-menu-item key="10" v-on:click="select(10)">
+            <router-link to="/device/10">deviece {{device[9].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="11">
-            deviece
+          <a-menu-item key="11" v-on:click="select(11)">
+            <router-link to="/device/11">deviece {{device[10].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="12">
-            deviece
+          <a-menu-item key="12" v-on:click="select(12)">
+            <router-link to="/device/12">deviece {{device[11].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="13">
-            deviece
+          <a-menu-item key="13" v-on:click="select(13)">
+            <router-link to="/device/13">deviece {{device[12].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="14">
-            deviece
+          <a-menu-item key="14" v-on:click="select(14)">
+            <router-link to="/device/14">deviece {{device[13].id}}</router-link> 
           </a-menu-item>
-          <a-menu-item key="15">
-            deviece
-          </a-menu-item>
+          <a-menu-item key="15" v-on:click="select(15)">
+            <router-link to="/device/15">deviece {{device[14].id}}</router-link> 
+          </a-menu-item> 
 
         </a-sub-menu>
       </a-menu>
@@ -102,14 +102,38 @@
 export default {
   data () {
     return{
+      user:{
+        name: "用户0001"
+      },
+      device:[
+        { id: 1 },
+        { id: 2 },
+        { id: 3 },
+        { id: 4 },
+        { id: 5 },
+        { id: 6 },
+        { id: 7 },
+        { id: 8 },
+        { id: 9 },
+        { id: 10 },
+        { id: 11 },
+        { id: 12 },
+        { id: 13 },
+        { id: 14 },
+        { id: 15 },
+      ],
       logoSrc: require('./assets/logo.png')
     }
   },
   methods: {
-    onCollapse(collapsed, type) {
+    select(deviceId){
+      console.log(deviceId);
+
+    },
+    onCollapse(collapsed, type) {   //面板收缩
       console.log(collapsed, type);
     },
-    onBreakpoint(broken) {
+    onBreakpoint(broken) {    //暂时不知道有啥用
       console.log(broken);
     },
   },
