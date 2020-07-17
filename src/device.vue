@@ -1,15 +1,13 @@
 <template>
   <a-layout id="components-layout-demo-responsive">
     <a-layout>
-      <a-layout-content :style="{ margin: '24px 16px 0', minHeight: '80vh' }">
+      <a-layout-content :style="{ margin: '24px 16px 0' }">
           <a-card :style="{ background: 'fff' }" title="">
               <span style="display:inline">更新时间: {{date}}</span>
           </a-card>
           <a-row type="flex" style="margin-top: 15px">
-                        <!-- <a-col :span="1"></a-col> -->
-
             <a-col :span="5">
-              <a-card :style="{ background: 'fff' }" title="设备概况">
+              <a-card :style="{ background: 'fff', minHeight: '30vh' }" title="设备概况">
                   <img
                     slot="cover"
                     :src="deviceSrc"
@@ -18,35 +16,52 @@
               </a-card>
             </a-col>
             <a-col :span="1"></a-col>
-            <a-col :span="16" >
-              <a-card :style="{ background: 'fff' }" title="设备数据">
-                <a-row type="flex" justify="space-around">
-                  <a-col :span="8" >
-                    <div style="width:100%; height: 280px; background: yellow"></div>
+            <a-col :span="18">
+              <a-card :style="{ background: 'fff' }" style="height: 378px" title="设备数据">
+                <a-row type="flex" justify="space-around" align="center">
+                  <a-col :span="7" >
+                    <!-- <div style="width:100%; height: 17.5vw; background: yellow"></div> -->
+                      <div id="gauge" class="guage" style="height: 200px"></div>
                   </a-col>
-                  <a-col :span="8" >
-                    <div style="width:100%; height: 280px; background: gray"></div>
+                  <a-col :span="7" type="flex" justify="space-around">
+                    <a-row type="flex" justify="space-around" class="right" style="width:80%">
+                    <!-- <div style="width:100%; height: 17.5vw; background: gray;"> -->
+                          <a-col :span="20" style=" margin-top: 2vw">
+                              <div style="border-radius: 5px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);width: 40px;  text-align: center;">温度</div>
+                              <div id="humidity" style="text-align: center; font-size: 30px; color: #0AC267;">value°C</div>
+                          </a-col>
+                          <a-col :span="20" style="">
+                              <div style="border-radius: 5px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);width: 65px; margin: 0px 0px 10px; text-align: center;">相对湿度</div>
+                              <div id="relative-humidity" style="text-align: center; font-size: 30px; color: #66ccff;">value%</div>
+                          </a-col>
+                    </a-row>  
+                    <!-- </div> -->
                   </a-col>                  
-                  <a-col :span="8" >
-                    <div style="width:100%; height: 280px; background: pink"></div>
+                  <a-col :span="7" >
+                    <!-- <div style="width:100%; height: 17.5vw; background: pink"></div> -->
+                    <a-card style="width:80%; height: 200px">
+                        <img
+                          slot="cover"
+                          :src="gaugeSrc"
+                        />
+                    </a-card>
                   </a-col>
                 </a-row>
               </a-card>
             </a-col>
 
-            <a-col :span="23">
-              <div id="main" style="width: 100%; height: 250px;"></div>
-
-              <!-- <div id="main" style="width:600px; height: 200px;"></div> -->
+            <a-col :span="24" style="margin-top: 15px">
+              <a-card :style="{ background: 'fff' }" title="历史数据">
+                <div id="main" style=" height: 250px; width: 80vw; margin-top:-30px"></div>
+              </a-card>
             </a-col>
-
           </a-row>
       </a-layout-content>
     </a-layout>
   </a-layout>
 </template>
 
- <script src="/js/echarts.min.js"></script>
+<script src="/js/echarts.min.js"></script>
 
 
 <script>
@@ -55,115 +70,117 @@ export default {
   data () {
     return{
       date: new Date(),
-      deviceSrc: require('./assets/device2.png')
+      deviceSrc: require('./assets/device2.png'),
+      gaugeSrc: require('./assets/gauge.png'),
+      value: 0
     }
   },
   methods: {
       myChart(){
         // 基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('main'));
-var tempData = [];        // 温度
-var TempUpdate = [];
-var humiData = [];        // 湿度
-var humiUpdate = [];
-var oneDay = 24 * 3600 * 1000;
-var now = new Date() - 1*oneDay;
+        var myChart = echarts.init(document.getElementById('main'));
+        var tempData = [];        // 温度
+        var TempUpdate = [];
+        var humiData = [];        // 湿度
+        var humiUpdate = [];
+        var oneDay = 24 * 3600 * 1000;
+        var now = new Date() - 1*oneDay;
 
-var oneMin = 60 *1000
-var oneHour = 3600*1000
-var value = Math.random()*1+25;
-$.ajax({
-    type: 'POST',
-    url: "http://api.huozhiniao.cn/api/user/v2/login",
-    data: {
-        mobile: 'test',
-        password: '123456'
-    },
-    success: function(res){
-        console.log(res);
-        let token = res.data.token;
-        console.log("token:"+token);
-            $.ajax({
-                type: 'POST',
-                headers: {
-                    "fbtoken" : `${token}`,
-                },
-                url: "http://api.huozhiniao.cn/api/sensor/records",
-                data: {
-                    deviceId: '89860412129'
-                },
-                success: function(res){
-                    console.log(res.data.count)
-                    for (var i = 0; i < 1200; i++) {
-                        tempData.push(randomData());
-                        console.log(randomData())
-                    }
-                    // for(var i=0; i < 100; i++){
-                    //     let listItem = {}
-                    //     listItem = res.data.list[i];
-                    //     console.log(listItem)
-                    //     humiData.push(listItem.humidity)
+        var oneMin = 60 *1000
+        var oneHour = 3600*1000
+        var value = Math.random()*1+25;
+        $.ajax({
+            type: 'POST',
+            url: "http://api.huozhiniao.cn/api/user/v2/login",
+            data: {
+                mobile: 'test',
+                password: '123456'
+            },
+            success: function(res){
+                console.log(res);
+                let token = res.data.token;
+                console.log("token:"+token);
+                    $.ajax({
+                        type: 'POST',
+                        headers: {
+                            "fbtoken" : `${token}`,
+                        },
+                        url: "http://api.huozhiniao.cn/api/sensor/records",
+                        data: {
+                            deviceId: '89860412129'
+                        },
+                        success: function(res){
+                            console.log(res.data.count)
+                            for (var i = 0; i < 1200; i++) {
+                                tempData.push(randomData());
+                                console.log(randomData())
+                            }
+                            // for(var i=0; i < 100; i++){
+                            //     let listItem = {}
+                            //     listItem = res.data.list[i];
+                            //     console.log(listItem)
+                            //     humiData.push(listItem.humidity)
 
-                    //     tempData.push(formatData(listItem))
-                    // }
-                    // TempUpdate = tempData[0].value[1];
-                    // console.log(tempData[0])
-                    // humiUpdate = humiData[0];
-                    myChart.setOption(option);
-                },
-            });
-    },
-});
-function formatData(listItem){
-    let temp
-    let timestamp
-    let itemDate
+                            //     tempData.push(formatData(listItem))
+                            // }
+                            // TempUpdate = tempData[0].value[1];
+                            // console.log(tempData[0])
+                            // humiUpdate = humiData[0];
+                            myChart.setOption(option);
+                        },
+                    });
+            },
+        });
+        function formatData(listItem){
+            let temp
+            let timestamp
+            let itemDate
 
-    temp = listItem.temp;
-    timestamp = listItem.lastDataTime;
-    itemDate = new Date(timestamp);
-    console.log(itemDate)
-    //let itemDate = new Date(+now + oneMin);
+            temp = listItem.temp;
+            timestamp = listItem.lastDataTime;
+            itemDate = new Date(timestamp);
+            console.log(itemDate)
+            //let itemDate = new Date(+now + oneMin);
 
-    var h=itemDate.getHours();
-    var mm=itemDate.getMinutes();
-    h=h>9?h:"0"+h;
-    mm=mm>9?mm:"0"+mm;
-    //console.log([itemDate.getFullYear(), itemDate.getMonth() + 1, itemDate.getDate(),].join('/')+ ' '+h + ':'+ mm)
-    //console.log(temp)
-    return {
-        name: itemDate.toString(),
-        value: [
-            [itemDate.getFullYear(), itemDate.getMonth() + 1, itemDate.getDate(),].join('/')+ ' '+h + ':'+ mm,
-            temp
-        ]
-    };
-}
-function randomData() {
-    now = new Date(+now + oneMin);
-    var h=now.getHours();
-    var mm=now.getMinutes();
-    h=h>9?h:"0"+h;
-    mm=mm>9?mm:"0"+mm;
-    value = value + Math.random() * 1-0.5;
-    return {
-        name: now.toString(),
-        value: [
-            //[now.getFullYear(), now.getMonth() + 1, now.getDate(), ' ',h , ':', mm].join('/'),//+' '+hour+':00',
-            [now.getFullYear(), now.getMonth() + 1, now.getDate(),].join('/')+ ' '+h + ':'+ mm,
-           // [now.getMonth() + 1, now.getDate()].join('/'),
-            //Math.round(value)
-            value
+            var h=itemDate.getHours();
+            var mm=itemDate.getMinutes();
+            h=h>9?h:"0"+h;
+            mm=mm>9?mm:"0"+mm;
+            //console.log([itemDate.getFullYear(), itemDate.getMonth() + 1, itemDate.getDate(),].join('/')+ ' '+h + ':'+ mm)
+            //console.log(temp)
+            return {
+                name: itemDate.toString(),
+                value: [
+                    [itemDate.getFullYear(), itemDate.getMonth() + 1, itemDate.getDate(),].join('/')+ ' '+h + ':'+ mm,
+                    temp
+                ]
+            };
+        }
+        function randomData() {
+            now = new Date(+now + oneMin);
+            var h=now.getHours();
+            var mm=now.getMinutes();
+            h=h>9?h:"0"+h;
+            mm=mm>9?mm:"0"+mm;
+            value = value + Math.random() * 1-0.5;
+            return {
+                name: now.toString(),
+                value: [
+                    //[now.getFullYear(), now.getMonth() + 1, now.getDate(), ' ',h , ':', mm].join('/'),//+' '+hour+':00',
+                    [now.getFullYear(), now.getMonth() + 1, now.getDate(),].join('/')+ ' '+h + ':'+ mm,
+                  // [now.getMonth() + 1, now.getDate()].join('/'),
+                    //Math.round(value)
+                    value
 
-        ]
-    };
-} 
+                ]
+            };
+        } 
         var myChart = echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
         var option = {
-            title: {
-                text: 'Temperature-History'
-            },
+            // title: {
+            //     text: ''
+            // },
             tooltip: {
                 trigger: 'axis',
                 formatter: function (params) {
@@ -201,10 +218,48 @@ function randomData() {
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
+      },
+      myGauge(){
+        /* 仪表盘 */
+        var gauge = echarts.init(document.getElementById('gauge'));
+        let gaugeOption = {
+            tooltip: {
+                formatter: '{a} <br/>{b} : {c}%'
+            },
+            toolbox: {
+                feature: {
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            series: [
+                {
+                    name: '业务指标',
+                    type: 'gauge',
+                    min: 10,
+                    max: 90,
+                    radius: '100%',
+                    axisLine: {
+                        lineStyle: {
+                            width: 15 // 修改宽度
+                        }
+                    },
+                    axisLabel: {
+                        distance: -10 // 刻度值与表盘的距离
+                    },
+                    detail: {formatter: '{value}%'},
+                    data: [{value: 5, name: '低压'}]
+                }
+            ]
+        };
+
+        gauge.setOption(gaugeOption);
       }
+
   },
   mounted(){
-      this.myChart()
+      this.myChart();
+      this.myGauge();
   },
   components: {
     
@@ -212,7 +267,7 @@ function randomData() {
 };
 </script>
 
-<style>
+<style scoped>
 #components-layout-demo-responsive .avatar {
   margin: 20px 52px 10px 52px;
 }
@@ -220,5 +275,11 @@ function randomData() {
   display: block;  
   color: rgba(255,255,255, 0.7);
   margin-bottom: 10px;
+}
+.right {
+    height: 200px;
+    background: #ffffff;
+    border-radius: 55px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
 }
 </style>
