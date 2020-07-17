@@ -18,24 +18,13 @@
             <a-col :span="1"></a-col>
             <a-col :span="18">
               <a-card :style="{ background: 'fff' }" style="height: 378px" title="设备数据">
-                <a-row type="flex" justify="space-around" align="center">
+                <a-row type="flex" justify="space-around" align="middle">
                   <a-col :span="7" >
-                    <!-- <div style="width:100%; height: 17.5vw; background: yellow"></div> -->
-                      <div id="gauge" class="guage" style="height: 200px"></div>
+                      <!-- <div id="gauge" class="guage" style="height: 200px"></div> -->
+                      <gauge></gauge>
                   </a-col>
                   <a-col :span="7" type="flex" justify="space-around">
-                    <a-row type="flex" justify="space-around" class="right" style="width:80%">
-                    <!-- <div style="width:100%; height: 17.5vw; background: gray;"> -->
-                          <a-col :span="20" style=" margin-top: 2vw">
-                              <div style="border-radius: 5px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);width: 40px;  text-align: center;">温度</div>
-                              <div id="humidity" style="text-align: center; font-size: 30px; color: #0AC267;">value°C</div>
-                          </a-col>
-                          <a-col :span="20" style="">
-                              <div style="border-radius: 5px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);width: 65px; margin: 0px 0px 10px; text-align: center;">相对湿度</div>
-                              <div id="relative-humidity" style="text-align: center; font-size: 30px; color: #66ccff;">value%</div>
-                          </a-col>
-                    </a-row>  
-                    <!-- </div> -->
+                    <realTimeWin></realTimeWin>
                   </a-col>                  
                   <a-col :span="7" >
                     <!-- <div style="width:100%; height: 17.5vw; background: pink"></div> -->
@@ -51,9 +40,10 @@
             </a-col>
 
             <a-col :span="24" style="margin-top: 15px">
-              <a-card :style="{ background: 'fff' }" title="历史数据">
+              <!-- <a-card :style="{ background: 'fff' }" title="历史数据">
                 <div id="main" style=" height: 250px; width: 80vw; margin-top:-30px"></div>
-              </a-card>
+              </a-card> -->
+              <historyChart></historyChart>
             </a-col>
           </a-row>
       </a-layout-content>
@@ -65,7 +55,9 @@
 
 
 <script>
-
+import realTimeWin from './components/real-time-win'
+import gauge from './components/gauge'
+import historyChart from './components/history-chart'
 export default {
   data () {
     return{
@@ -74,6 +66,11 @@ export default {
       gaugeSrc: require('./assets/gauge.png'),
       value: 0
     }
+  },
+  components: {
+    realTimeWin,
+    gauge,
+    historyChart
   },
   methods: {
       myChart(){
@@ -111,9 +108,9 @@ export default {
                         },
                         success: function(res){
                             console.log(res.data.count)
+
                             for (var i = 0; i < 1200; i++) {
                                 tempData.push(randomData());
-                                console.log(randomData())
                             }
                             // for(var i=0; i < 100; i++){
                             //     let listItem = {}
@@ -219,51 +216,14 @@ export default {
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
       },
-      myGauge(){
-        /* 仪表盘 */
-        var gauge = echarts.init(document.getElementById('gauge'));
-        let gaugeOption = {
-            tooltip: {
-                formatter: '{a} <br/>{b} : {c}%'
-            },
-            toolbox: {
-                feature: {
-                    restore: {},
-                    saveAsImage: {}
-                }
-            },
-            series: [
-                {
-                    name: '业务指标',
-                    type: 'gauge',
-                    min: 10,
-                    max: 90,
-                    radius: '100%',
-                    axisLine: {
-                        lineStyle: {
-                            width: 15 // 修改宽度
-                        }
-                    },
-                    axisLabel: {
-                        distance: -10 // 刻度值与表盘的距离
-                    },
-                    detail: {formatter: '{value}%'},
-                    data: [{value: 5, name: '低压'}]
-                }
-            ]
-        };
-
-        gauge.setOption(gaugeOption);
-      }
+      
 
   },
   mounted(){
       this.myChart();
-      this.myGauge();
+     // this.myGauge();
   },
-  components: {
-    
-  }
+
 };
 </script>
 
