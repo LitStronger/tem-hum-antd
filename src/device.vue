@@ -24,7 +24,7 @@
                       <gauge></gauge>
                   </a-col>
                   <a-col :span="7" type="flex" justify="space-around">
-                    <realTimeWin></realTimeWin>
+                    <realTimeWin :RTData='RTData'></realTimeWin>
                   </a-col>                  
                   <a-col :span="7" >
                     <!-- <div style="width:100%; height: 17.5vw; background: pink"></div> -->
@@ -43,7 +43,7 @@
               <!-- <a-card :style="{ background: 'fff' }" title="历史数据">
                 <div id="main" style=" height: 250px; width: 80vw; margin-top:-30px"></div>
               </a-card> -->
-              <historyChart></historyChart>
+              <historyChart :RTData="RTData" :tempData="tempData"></historyChart>
             </a-col>
           </a-row>
       </a-layout-content>
@@ -62,9 +62,14 @@ export default {
   data () {
     return{
       date: new Date(),
+      tempData: [],
+      RTData: {     //real-time data
+        temperature: 30.1,
+        humidity: 80.1
+      },
       deviceSrc: require('./assets/device2.png'),
       gaugeSrc: require('./assets/gauge.png'),
-      value: 0
+      value: 3
     }
   },
   components: {
@@ -86,7 +91,10 @@ export default {
         var oneMin = 60 *1000
         var oneHour = 3600*1000
         var value = Math.random()*1+25;
-        $.ajax({
+        let test = this.RTData
+
+
+/*        $.ajax({
             type: 'POST',
             url: "http://api.huozhiniao.cn/api/user/v2/login",
             data: {
@@ -107,11 +115,13 @@ export default {
                             deviceId: '89860412129'
                         },
                         success: function(res){
-                            console.log(res.data.count)
+                            console.log(res.data.count)*/
 
                             for (var i = 0; i < 1200; i++) {
                                 tempData.push(randomData());
                             }
+                            this.tempData = tempData
+                            //console.log(tempData)
                             // for(var i=0; i < 100; i++){
                             //     let listItem = {}
                             //     listItem = res.data.list[i];
@@ -123,11 +133,11 @@ export default {
                             // TempUpdate = tempData[0].value[1];
                             // console.log(tempData[0])
                             // humiUpdate = humiData[0];
-                            myChart.setOption(option);
-                        },
+                            // myChart.setOption(option);
+             /*           },
                     });
             },
-        });
+        });*/
         function formatData(listItem){
             let temp
             let timestamp
@@ -137,14 +147,11 @@ export default {
             timestamp = listItem.lastDataTime;
             itemDate = new Date(timestamp);
             console.log(itemDate)
-            //let itemDate = new Date(+now + oneMin);
 
             var h=itemDate.getHours();
             var mm=itemDate.getMinutes();
             h=h>9?h:"0"+h;
             mm=mm>9?mm:"0"+mm;
-            //console.log([itemDate.getFullYear(), itemDate.getMonth() + 1, itemDate.getDate(),].join('/')+ ' '+h + ':'+ mm)
-            //console.log(temp)
             return {
                 name: itemDate.toString(),
                 value: [
@@ -172,49 +179,6 @@ export default {
                 ]
             };
         } 
-        var myChart = echarts.init(document.getElementById('main'));
-        // 指定图表的配置项和数据
-        var option = {
-            // title: {
-            //     text: ''
-            // },
-            tooltip: {
-                trigger: 'axis',
-                formatter: function (params) {
-                    params = params[0];
-                    var date = new Date(params.name);
-                    return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
-                },
-                axisPointer: {
-                    animation: false
-                }
-            },            
-            xAxis: {
-                type: 'time',
-                splitLine: {
-                    show: false
-                }
-            },
-            
-            yAxis: {
-                type: 'value',
-                boundaryGap: [0, '100%'],
-                splitLine: {
-                    show: true
-                }
-            },            
-            series: [{
-                type: 'line',
-                showSymbol:false,
-                // smooth: true,
-                // data: [5, 20, 36, 10, 10, 20, 30],
-                data: tempData,
-                color:  '#66ccff'
-            }]
-        };
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
       },
       
 
