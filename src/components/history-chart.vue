@@ -27,7 +27,7 @@ export default {
         var now = new Date() - 1*oneDay;
         var oneMin = 60 *1000
         var oneHour = 3600*1000
-        var value = 25;
+        var value = 0;
         for(let i=0; i < 1200; i++){
             defaultData.push(randomData())
         }
@@ -88,18 +88,12 @@ export default {
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
-
-        // setInterval(function(){
-        //     console.log(1)
-        //     console.log(option)
-        // }, 2000);
     }
   },
   watch: {
             tempData(newVal,oldVal){
                 this.tempData = newVal;  //newVal即是chartData
                 console.log("watch")
-              //  console.log(newVal)
                 this.historyChart()
             }
   },

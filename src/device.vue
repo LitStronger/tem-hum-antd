@@ -78,7 +78,7 @@ export default {
     historyChart
   },
   methods: {
-      myChart(){
+    myChart(){
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
         var tempData = [];        // 温度
@@ -170,17 +170,18 @@ export default {
             return {
                 name: now.toString(),
                 value: [
-                    //[now.getFullYear(), now.getMonth() + 1, now.getDate(), ' ',h , ':', mm].join('/'),//+' '+hour+':00',
                     [now.getFullYear(), now.getMonth() + 1, now.getDate(),].join('/')+ ' '+h + ':'+ mm,
-                  // [now.getMonth() + 1, now.getDate()].join('/'),
-                    //Math.round(value)
                     value
 
                 ]
             };
         } 
-      },
+    },
+    RTDataUpdate(){
+      this.RTData.humidity = this.RTData.humidity + 1
       
+    }
+    
 
   },
   mounted(){
