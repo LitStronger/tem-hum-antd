@@ -26,10 +26,18 @@ export default new VueRouter({
                     name: 'index',
                     component: index,
                 },
+                // {
+                //     path: 'device',
+                //     name: 'device',
+                //     component: device,
+                // },
                 {
-                    path:'/device',
+                    path: '/device',
                     name: 'device',
                     component: device,
+                    props: (route)=>({
+                        id: route.query.id
+                    })
                 }
             ]
         },

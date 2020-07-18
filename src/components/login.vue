@@ -5,12 +5,12 @@
       class="user-layout-login"
       ref="formLogin"
       :form="form"
+      style="width: 350px; margin: 0 auto"
     >
       <a-tabs
         :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
-        @change="handleTabClick"
       >
-        <a-tab-pane key="tab1" tab="账号密码登录">
+        <a-tab-pane key="tab1" tab=" 登 录 ">
           <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin/ant.design )" />
           <a-form-item>
             <a-input
@@ -37,31 +37,6 @@
               <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
             </a-input-password>
           </a-form-item>
-        </a-tab-pane>
-        <a-tab-pane key="tab2" tab="手机号登录">
-          <a-form-item>
-            <a-input size="large" type="text" placeholder="手机号" v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}]">
-              <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-            </a-input>
-          </a-form-item>
-
-          <a-row :gutter="16">
-            <a-col class="gutter-row" :span="16">
-              <a-form-item>
-                <a-input size="large" type="text" placeholder="验证码" v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
-                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-                </a-input>
-              </a-form-item>
-            </a-col>
-            <a-col class="gutter-row" :span="8">
-              <a-button
-                class="getCaptcha"
-                tabindex="-1"
-                :disabled="state.smsSendBtn"
-                v-text="!state.smsSendBtn && '获取验证码' || (state.time+' s')"
-              ></a-button>
-            </a-col>
-          </a-row>
         </a-tab-pane>
       </a-tabs>
 
@@ -127,7 +102,7 @@ export default {
   },
   methods: {
       onJump(){
-        this.$router.push({ path: '/index' });
+        this.$router.push({ path: '/platform/index' });
 
       }
   }

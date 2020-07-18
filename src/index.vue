@@ -3,7 +3,7 @@
     <a-layout>
       <a-layout-content :style="{ margin: '24px 16px 0', minHeight: '80vh' }">
             <a-card :style="{ background: 'fff' }" title="设备总览">
-               <a-row type="flex" justify="space-around">
+               <a-row type="flex" justify="space-around" :gutter="[0,32]">
                 <a-col :span="1"></a-col>
                 <a-col :span="4">
                   <cardItem style=""></cardItem>
@@ -21,6 +21,9 @@
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="1"></a-col>
+              </a-row>
+
+               <a-row type="flex" justify="space-around" :gutter="[0,32]">
                  <a-col :span="1"></a-col>
                 <a-col :span="4">
                   <cardItem style=""></cardItem>
@@ -38,6 +41,39 @@
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="1"></a-col>
+              </a-row>
+
+               <a-row type="flex" justify="space-around" :gutter="[0,32]">
+                <a-col :span="1"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="2"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="2"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="2"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="1"></a-col>
+              </a-row>
+
+              <a-row type="flex" justify="start" :gutter="[0,32]">
+                <a-col :span="1"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="2"></a-col>
+                <a-col :span="4">
+                  <cardItem style=""></cardItem>
+                </a-col>
+                <a-col :span="2"></a-col>
+
               </a-row>
           </a-card>
       </a-layout-content>

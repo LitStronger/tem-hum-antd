@@ -12,12 +12,12 @@
                     slot="cover"
                     :src="deviceSrc"
                   />
-                  <span style="display: ">设备编号: </span>
+                  <span style="display: ">设备编号: {{this.id}}</span>
               </a-card>
             </a-col>
             <a-col :span="1"></a-col>
             <a-col :span="18">
-              <a-card :style="{ background: 'fff' }" style="height: 378px" title="设备数据">
+              <a-card :style="{ background: 'fff' }" style="height: 360px" title="设备数据">
                 <a-row type="flex" justify="space-around" align="middle">
                   <a-col :span="7" >
                       <!-- <div id="gauge" class="guage" style="height: 200px"></div> -->
@@ -59,6 +59,7 @@ import realTimeWin from './components/real-time-win'
 import gauge from './components/gauge'
 import historyChart from './components/history-chart'
 export default {
+  props: ['id'],
   data () {
     return{
       date: new Date(),
@@ -93,7 +94,7 @@ export default {
         var value = Math.random()*1+25;
         let test = this.RTData
 
-
+        console.log("device2: "+this.id)
 /*        $.ajax({
             type: 'POST',
             url: "http://api.huozhiniao.cn/api/user/v2/login",
