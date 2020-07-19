@@ -28,7 +28,7 @@
             <router-link to="device">deviece {{device[0].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="2" v-on:click="select(1)">
-            <router-link :to="{ path:'/device', query:{id:2} }">deviece {{device[1].id}}</router-link> 
+            <router-link to="/device">deviece {{device[1].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="3" v-on:click="select(2)">
             <router-link to="/device">deviece {{device[2].id}}</router-link> 
@@ -91,8 +91,6 @@
   </a-layout>
 </template>
 <script>
-
-// import cardItem from './components/card-item'
 
 export default {
   data () {

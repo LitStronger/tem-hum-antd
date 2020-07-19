@@ -65,7 +65,7 @@ export default {
       date: new Date(),
       tempData: [],
       RTData: {     //real-time data
-        temperature: 30.1,
+        temperature: 25.1,
         humidity: 80.1
       },
       deviceSrc: require('./assets/device2.png'),
@@ -81,20 +81,27 @@ export default {
   methods: {
     myChart(){
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
+//        var myChart = echarts.init(document.getElementById('main'));
         var tempData = [];        // 温度
-        var TempUpdate = [];
-        var humiData = [];        // 湿度
-        var humiUpdate = [];
+//        var TempUpdate = [];
+//        var humiData = [];        // 湿度
+//        var humiUpdate = [];
         var oneDay = 24 * 3600 * 1000;
         var now = new Date() - 1*oneDay;
 
         var oneMin = 60 *1000
         var oneHour = 3600*1000
         var value = Math.random()*1+25;
-        let test = this.RTData
+        
+        // setInterval(()=>{
+        //   console.log("RTData-test "+this.RTData.humidity)
+        //   this.RTData.temperature = this.RTData.temperature + 1 
+        //   this.RTData.humidity = this.RTData.humidity + 1
+        // }, 2000);
 
         console.log("device2: "+this.id)
+
+        
 /*        $.ajax({
             type: 'POST',
             url: "http://api.huozhiniao.cn/api/user/v2/login",
@@ -118,10 +125,18 @@ export default {
                         success: function(res){
                             console.log(res.data.count)*/
 
+
                             for (var i = 0; i < 1200; i++) {
                                 tempData.push(randomData());
                             }
                             this.tempData = tempData
+
+                            // setInterval(()=>{
+                            //   console.log("chartData-test ")
+                            //   this.tempData.shift();
+                            //   this.tempData.push(randomData());
+                            // }, 100);
+
                             //console.log(tempData)
                             // for(var i=0; i < 100; i++){
                             //     let listItem = {}
@@ -178,10 +193,6 @@ export default {
             };
         } 
     },
-    RTDataUpdate(){
-      this.RTData.humidity = this.RTData.humidity + 1
-      
-    }
     
 
   },
@@ -191,6 +202,7 @@ export default {
   },
 
 };
+
 </script>
 
 <style scoped>
