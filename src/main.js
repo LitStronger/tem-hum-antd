@@ -3,11 +3,17 @@ import 'babel-polyfill' // 解决set is no defined
 import Antd from 'ant-design-vue/lib';
 import App from './App.vue'
 import 'ant-design-vue/dist/antd.css';
-import router from '../router/router' //引入路由
-// import echarts from 'echarts'
+
+//引入路由
+import router from '../router/router' 
+
+//图片查看
+import VueDirectiveImagePreviewer from 'vue-directive-image-previewer'
+import 'vue-directive-image-previewer/dist/assets/style.css'
+
+Vue.use(VueDirectiveImagePreviewer)
 Vue.use(Antd)
 
-// Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
 

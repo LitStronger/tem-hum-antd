@@ -83,7 +83,7 @@
         </a-avatar>
         <span style="font-size: 18px"> 鸱吻云平台</span>
       </a-layout-header>
-      <router-view></router-view>
+      <router-view :device="device"></router-view>
       <a-layout-footer style="textAlign: center">
         鸱吻云科技 联系电话：xxxxx
       </a-layout-footer>

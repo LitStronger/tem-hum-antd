@@ -9,15 +9,15 @@
                   <router-link to="/device"><cardItem style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(1)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="2"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(2)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="2"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(3)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="1"></a-col>
@@ -25,19 +25,19 @@
 
                <a-row type="flex" justify="space-around" :gutter="[0,32]">
                  <a-col :span="1"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(4)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="2"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(5)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="2"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(6)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="2"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(7)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="1"></a-col>
@@ -45,19 +45,19 @@
 
                <a-row type="flex" justify="space-around" :gutter="[0,32]">
                 <a-col :span="1"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(8)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="2"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(9)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="2"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(10)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="2"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(11)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="1"></a-col>
@@ -65,15 +65,17 @@
 
               <a-row type="flex" justify="start" :gutter="[0,32]">
                 <a-col :span="1"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(12)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="2"></a-col>
-                <a-col :span="4">
+                <a-col :span="4" @click="select(13)">
                   <cardItem style=""></cardItem>
                 </a-col>
                 <a-col :span="2"></a-col>
-
+                <a-col :span="4" @click="select(14)">
+                  <cardItem style=""></cardItem>
+                </a-col>
               </a-row>
           </a-card>
       </a-layout-content>
@@ -85,6 +87,7 @@
 import cardItem from './components/card-item'
 
 export default {
+  props: ['device'],
   data () {
     return{
       logoSrc: require('./assets/logo.png')
@@ -93,8 +96,9 @@ export default {
   methods: {
     select(index){
       let param = { id: this.device[index].id }
-      this.$router.push({path:"/device", query:param})
+      this.$router.push( {path:"/device", query:param} )
       console.log("pic: "+index);
+      
     },
     onCollapse(collapsed, type) {
       console.log(collapsed, type);

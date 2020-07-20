@@ -1,5 +1,5 @@
 <template>
-                    <a-row type="flex" justify="space-around" class="right" style="width:80%">
+                    <a-row type="flex" justify="space-around" class="realTimeWin" style="width:80%">
                     <!-- <div style="width:100%; height: 17.5vw; background: gray;"> -->
                           <a-col :span="20" style=" margin-top: 2vw">
                               <div style="border-radius: 5px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);width: 40px;  text-align: center;">温度</div>
@@ -34,4 +34,11 @@ export default {
 </script>
 
 <style scoped>
+.realTimeWin {
+    height: 200px;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    margin-left: 8%;
+}
 </style>

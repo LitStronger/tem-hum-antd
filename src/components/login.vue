@@ -102,7 +102,7 @@ export default {
   },
   methods: {
       onJump(){
-        this.$router.push({ path: '/platform/index' });
+        this.$router.push({ path: '/index' });
 
       }
   }

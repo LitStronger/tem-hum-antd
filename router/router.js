@@ -12,6 +12,10 @@ Vue.use(VueRouter); // 注册路由
 export default new VueRouter({
     routes:[
         {
+            path: '/',
+            component: login
+        },
+        {
             path: '/login',
             name: '',
             component: login
@@ -22,7 +26,7 @@ export default new VueRouter({
             component: platform,
             children:[
                 {            
-                    path:'/index',
+                    path: '/index',
                     name: 'index',
                     component: index,
                 },

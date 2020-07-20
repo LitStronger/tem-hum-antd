@@ -1,6 +1,6 @@
 <template>
-    <div id="gauge" class="guage" style="height: 200px">
-</div>
+        <div id="gauge" class="guage" style="height: 200px; width: 17.5vw">
+        </div>
 </template>
 
 <script src="/js/echarts.min.js"></script>
@@ -34,7 +34,7 @@ export default {
                     radius: '100%',
                     axisLine: {
                         lineStyle: {
-                            width: 15 // 修改宽度
+                            width: 15, // 修改宽度
                         }
                     },
                     axisLabel: {

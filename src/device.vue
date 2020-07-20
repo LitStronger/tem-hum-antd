@@ -18,21 +18,25 @@
             <a-col :span="1"></a-col>
             <a-col :span="18">
               <a-card :style="{ background: 'fff' }" style="height: 360px" title="设备数据">
-                <a-row type="flex" justify="space-around" align="middle">
-                  <a-col :span="7" >
+                <a-row type="flex" justify="space-around" >
+                  <a-col :span="7" style="text-align:center">
                       <!-- <div id="gauge" class="guage" style="height: 200px"></div> -->
                       <gauge></gauge>
+                      <a-icon type="environment" /><span> 第五餐厅</span>
                   </a-col>
-                  <a-col :span="7" type="flex" justify="space-around">
+                  <a-col :span="7" >
                     <realTimeWin :RTData='RTData'></realTimeWin>
                   </a-col>                  
                   <a-col :span="7" >
                     <!-- <div style="width:100%; height: 17.5vw; background: pink"></div> -->
-                    <a-card style="width:80%; height: 200px">
-                        <img
+                    <a-card style="width:80%; text-align:center; border: none">
+                        <img  v-image-preview
                           slot="cover"
+                          class="picGauge"
                           :src="gaugeSrc"
+                          @click="imgShow"
                         />
+                        <span style="display:block; margin-top:-13px">点击可查看原图</span>
                     </a-card>
                   </a-col>
                 </a-row>
@@ -54,6 +58,7 @@
 <script src="/js/echarts.min.js"></script>
 
 
+
 <script>
 import realTimeWin from './components/real-time-win'
 import gauge from './components/gauge'
@@ -69,7 +74,8 @@ export default {
         humidity: 80.1
       },
       deviceSrc: require('./assets/device2.png'),
-      gaugeSrc: require('./assets/gauge.png'),
+      //gaugeSrc: require('./assets/gauge.png'),
+      gaugeSrc: "images/pic-gauge/test1.bmp",
       value: 3
     }
   },
@@ -79,6 +85,10 @@ export default {
     historyChart
   },
   methods: {
+    imgShow(){
+      console.log("imgShow click");
+
+    },
     myChart(){
         // 基于准备好的dom，初始化echarts实例
 //        var myChart = echarts.init(document.getElementById('main'));
@@ -93,12 +103,19 @@ export default {
         var oneHour = 3600*1000
         var value = Math.random()*1+25;
         
+        // 更新时间/real-time-win/仪表盘图片轮播 的处理
         // setInterval(()=>{
         //   console.log("RTData-test "+this.RTData.humidity)
         //   this.RTData.temperature = this.RTData.temperature + 1 
         //   this.RTData.humidity = this.RTData.humidity + 1
         // }, 2000);
-
+        var picIndex = 0;
+        setInterval(() => {
+          picIndex = picIndex + 1
+          if(picIndex > 8) picIndex = 1
+          this.gaugeSrc = `images/pic-gauge/test${picIndex}.bmp`
+          this.date = new Date()
+        }, 10000);7
         console.log("device2: "+this.id)
 
         
@@ -125,7 +142,7 @@ export default {
                         success: function(res){
                             console.log(res.data.count)*/
 
-
+                            // history-chart 数据处理 
                             for (var i = 0; i < 1200; i++) {
                                 tempData.push(randomData());
                             }
@@ -154,6 +171,8 @@ export default {
                     });
             },
         });*/
+
+
         function formatData(listItem){
             let temp
             let timestamp
@@ -214,10 +233,10 @@ export default {
   color: rgba(255,255,255, 0.7);
   margin-bottom: 10px;
 }
-.right {
-    height: 200px;
-    background: #ffffff;
-    border-radius: 55px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+
+.picGauge {
+  border-radius: 30px;
+ height: 200px;
 }
+
 </style>
