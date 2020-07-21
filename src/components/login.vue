@@ -10,7 +10,7 @@
       <a-tabs
         :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
       >
-        <a-tab-pane key="tab1" tab="请 登 录 ">
+        <a-tab-pane tab="请 登 录 " key="tab1" >
           <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin/ant.design )" />
           <a-form-item>
             <a-input
@@ -83,10 +83,8 @@
 <script src="/js/jquery.js"></script>
 
 <script>
-
 export default {
   components: {
-
   },
   data () {
     return {
