@@ -83,8 +83,10 @@
 <script src="/js/jquery.js"></script>
 
 <script>
+
 export default {
   components: {
+
   },
   data () {
     return {
@@ -109,10 +111,9 @@ export default {
 
         let token = ''
         let router = this.$router;
-        console.log(router)
-        console.log(this.form.getFieldsValue(['username']).username)    
-        console.log(this.form.getFieldsValue(['password']).password)        
-      
+        function testFun(){
+          this.router
+        }       
         $.ajax({
             type: 'POST',
             url: "http://api.huozhiniao.cn/api/user/v2/login",

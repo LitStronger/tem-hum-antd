@@ -25,49 +25,49 @@
         <a-sub-menu key="17">
           <span slot="title"><a-icon type="user" /><span> 我的设备 </span></span>
           <a-menu-item key="1" v-on:click="select(0)">
-            <router-link to="device">deviece {{device[0].id}}</router-link> 
+            <router-link to="device"> {{device[0].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="2" v-on:click="select(1)">
-            <router-link to="/device">deviece {{device[1].id}}</router-link> 
+            <router-link to="/device"> {{device[1].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="3" v-on:click="select(2)">
-            <router-link to="/device">deviece {{device[2].id}}</router-link> 
+            <router-link to="/device"> {{device[2].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="4" v-on:click="select(3)">
-            <router-link to="/device">deviece {{device[3].id}}</router-link> 
+            <router-link to="/device"> {{device[3].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="5" v-on:click="select(4)">
-            <router-link to="/device">deviece {{device[4].id}}</router-link> 
+            <router-link to="/device"> {{device[4].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="6" v-on:click="select(5)">
-            <router-link to="/device">deviece {{device[5].id}}</router-link> 
+            <router-link to="/device"> {{device[5].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="7" v-on:click="select(6)">
-            <router-link to="/device">deviece {{device[6].id}}</router-link> 
+            <router-link to="/device"> {{device[6].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="8" v-on:click="select(7)">
-            <router-link to="/device">deviece {{device[7].id}}</router-link> 
+            <router-link to="/device"> {{device[7].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="9" v-on:click="select(8)">
-            <router-link to="/device">deviece {{device[8].id}}</router-link> 
+            <router-link to="/device"> {{device[8].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="10" v-on:click="select(9)">
-            <router-link to="/device">deviece {{device[9].id}}</router-link> 
+            <router-link to="/device"> {{device[9].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="11" v-on:click="select(10)">
-            <router-link to="/device">deviece {{device[10].id}}</router-link> 
+            <router-link to="/device"> {{device[10].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="12" v-on:click="select(11)">
-            <router-link to="/device">deviece {{device[11].id}}</router-link> 
+            <router-link to="/device"> {{device[11].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="13" v-on:click="select(12)">
-            <router-link to="/device">deviece {{device[12].id}}</router-link> 
+            <router-link to="/device"> {{device[12].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="14" v-on:click="select(13)">
-            <router-link to="/device">deviece {{device[13].id}}</router-link> 
+            <router-link to="/device"> {{device[13].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="15" v-on:click="select(14)">
-            <router-link to="/device">deviece {{device[14].id}}</router-link> 
+            <router-link to="/device"> {{device[14].id}}</router-link> 
           </a-menu-item> 
 
         </a-sub-menu>
@@ -99,21 +99,21 @@ export default {
         name: "用户0001"
       },
       device:[
-        { id: 1 },
-        { id: 2 },
-        { id: 3 },
-        { id: 4 },
-        { id: 5 },
-        { id: 6 },
-        { id: 7 },
-        { id: 8 },
-        { id: 9 },
-        { id: 10 },
-        { id: 11 },
-        { id: 12 },
-        { id: 13 },
-        { id: 14 },
-        { id: 15 },
+        { id: "测试-01" },
+        { id: "测试-02" },
+        { id: "测试-03" },
+        { id: "测试-04" },
+        { id: "测试-05" },
+        { id: "测试-06" },
+        { id: "测试-07" },
+        { id: "测试-08" },
+        { id: "测试-09" },
+        { id: "测试-10" },
+        { id: "测试-11" },
+        { id: "测试-12" },
+        { id: "测试-13" },
+        { id: "测试-14" },
+        { id: "测试-15" },
       ],
       logoSrc: require('./assets/logo.png')
     }

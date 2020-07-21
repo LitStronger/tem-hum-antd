@@ -29,19 +29,20 @@ export default {
                 {
                     name: '业务指标',
                     type: 'gauge',
-                    min: 10,
-                    max: 90,
+                    min: 0,
+                    max: 100,
                     radius: '100%',
                     axisLine: {
                         lineStyle: {
                             width: 15, // 修改宽度
+                            // 0-40 red  40-60 green 60-100 yellow
                         }
                     },
                     axisLabel: {
                         distance: -10 // 刻度值与表盘的距离
                     },
                     detail: {formatter: '{value}%'},
-                    data: [{value: 5, name: '低压'}]
+                    data: [{value: 55, name: '正常'}]
                 }
             ]
         };
