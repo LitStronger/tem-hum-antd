@@ -5,20 +5,23 @@
       class="user-layout-login"
       ref="formLogin"
       :form="form"
-      style="width: 350px; margin: 0 auto"
+      style="width: 350px; margin: 10vh auto"
     >
       <a-tabs
         :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
       >
-        <a-tab-pane key="tab1" tab=" 登 录 ">
+        <a-tab-pane key="tab1" tab="请 登 录 ">
           <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin/ant.design )" />
           <a-form-item>
             <a-input
+              style="margin-top: 6vh"
               size="large"
               type="text"
-              placeholder="账户: admin"
+              placeholder="请输入用户名"
               v-decorator="[
                 'username',
+                {rules: [{ required: true, message: '请输入用户名' }], validateTrigger: 'blur'}
+
               ]"
             >
               <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
@@ -28,7 +31,7 @@
           <a-form-item>
             <a-input-password
               size="large"
-              placeholder="密码: admin or ant.design"
+              placeholder="请输入密码"
               v-decorator="[
                 'password',
                 {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
@@ -70,12 +73,14 @@
         <a>
           <a-icon class="item-icon" type="weibo-circle"></a-icon>
         </a>
-        <router-link class="register" :to="{ name: 'register' }">注册账户</router-link>
+        <!-- <router-link class="register" :to="{ name: 'register' }">注册账户</router-link> -->
       </div>
     </a-form>
 
   </div>
 </template>
+
+<script src="/js/jquery.js"></script>
 
 <script>
 export default {
@@ -83,9 +88,9 @@ export default {
   },
   data () {
     return {
+
       customActiveKey: 'tab1',
       loginBtn: false,
-      // login type: 0 email, 1 username, 2 telephone
       loginType: 0,
       isLoginError: false,
       requiredTwoStepCaptcha: false,
@@ -94,7 +99,6 @@ export default {
       state: {
         time: 60,
         loginBtn: false,
-        // login type: 0 email, 1 username, 2 telephone
         loginType: 0,
         smsSendBtn: false
       }
@@ -102,7 +106,33 @@ export default {
   },
   methods: {
       onJump(){
-        this.$router.push({ path: '/index' });
+
+        let token = ''
+        let router = this.$router;
+        console.log(router)
+        console.log(this.form.getFieldsValue(['username']).username)    
+        console.log(this.form.getFieldsValue(['password']).password)        
+      
+        $.ajax({
+            type: 'POST',
+            url: "http://api.huozhiniao.cn/api/user/v2/login",
+            data: {
+                mobile: this.form.getFieldsValue(['username']).username,
+                password: this.form.getFieldsValue(['password']).password
+                // mobile: 'test',
+                // password: '123456'
+            },
+            success: function(res){
+                console.log(res);
+                if(res.success == false) 
+                  alert("用户名或密码错误")
+                else{
+                  token = res.data.token;
+                  console.log("token:"+token);
+                  router.push({ path: '/index' });
+                }
+            },
+        })
 
       }
   }
