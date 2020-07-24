@@ -1,6 +1,21 @@
 <template>
     <a-card :style="{ background: 'fff' }" title="历史数据">
-        <div id="main" style=" height: 250px; width: 80vw; margin-top:-30px"></div>
+        <a-row type="flex" justify="space-around">
+            <a-col :span="20">
+                <div id="main" style=" height: 250px; width: 70vw; margin-top:-30px"></div>
+            </a-col>
+            <a-col :span="4">
+                <div style="height: 180px; margin-top: 0px;" class="storeStatus">
+                    <br>
+                    <div style="margin-left:10px;border-radius: 5px;box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15); width:70px;  text-align: center;">存放条件</div>
+                    <br>
+                    <div style="text-align: center; font-size: 30px; color: #0AC267;">适宜</div>
+                          
+                    <!-- <span>存放条件 :</span><br><br> -->
+                    <!-- <span style="color: #0AC267; font-size: 30px">适宜</span> -->
+                </div>
+            </a-col>
+        </a-row>
     </a-card>
 </template>
 
@@ -104,4 +119,10 @@ export default {
 </script>
 
 <style scoped>
+    .storeStatus{
+        background: #ffffff;
+        border-radius: 30px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        margin-left: 8%;
+    }
 </style>

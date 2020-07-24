@@ -6,19 +6,19 @@
                <a-row type="flex" justify="space-around" :gutter="[0,32]">
                 <a-col :span="1"></a-col>
                 <a-col :span="4" @click="select(0)">
-                  <router-link to="/device"><cardItem style=""></cardItem></router-link>
+                  <router-link to="/device"><cardItem :deviceId="device[0].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
                 <a-col :span="4" @click="select(1)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[1].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
                 <a-col :span="4" @click="select(2)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[2].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
                 <a-col :span="4" @click="select(3)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[3].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="1"></a-col>
               </a-row>
@@ -26,19 +26,19 @@
                <a-row type="flex" justify="space-around" :gutter="[0,32]">
                  <a-col :span="1"></a-col>
                 <a-col :span="4" @click="select(4)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[4].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
                 <a-col :span="4" @click="select(5)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[5].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
                 <a-col :span="4" @click="select(6)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[6].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
                 <a-col :span="4" @click="select(7)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[7].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="1"></a-col>
               </a-row>
@@ -46,19 +46,19 @@
                <a-row type="flex" justify="space-around" :gutter="[0,32]">
                 <a-col :span="1"></a-col>
                 <a-col :span="4" @click="select(8)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[8].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
                 <a-col :span="4" @click="select(9)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[9].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
                 <a-col :span="4" @click="select(10)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[10].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
                 <a-col :span="4" @click="select(11)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[11].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="1"></a-col>
               </a-row>
@@ -66,15 +66,15 @@
               <a-row type="flex" justify="start" :gutter="[0,32]">
                 <a-col :span="1"></a-col>
                 <a-col :span="4" @click="select(12)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[12].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
                 <a-col :span="4" @click="select(13)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[13].id" style=""></cardItem></router-link>
                 </a-col>
                 <a-col :span="2"></a-col>
                 <a-col :span="4" @click="select(14)">
-                  <cardItem style=""></cardItem>
+                  <router-link to="/device"><cardItem :deviceId="device[14].id" style=""></cardItem></router-link>
                 </a-col>
               </a-row>
           </a-card>

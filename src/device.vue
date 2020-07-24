@@ -17,7 +17,7 @@
             </a-col>
             <a-col :span="1"></a-col>
             <a-col :span="18">
-              <a-card :style="{ background: 'fff' }" style="height: 360px" title="设备数据">
+              <a-card :style="{ background: 'fff' }" style="height: 375px" title="设备数据">
                 <a-row type="flex" justify="space-around" >
                   <a-col :span="7" style="text-align:center">
                       <!-- <div id="gauge" class="guage" style="height: 200px"></div> -->
@@ -44,10 +44,9 @@
             </a-col>
 
             <a-col :span="24" style="margin-top: 15px">
-              <!-- <a-card :style="{ background: 'fff' }" title="历史数据">
-                <div id="main" style=" height: 250px; width: 80vw; margin-top:-30px"></div>
-              </a-card> -->
-              <historyChart :RTData="RTData" :tempData="tempData"></historyChart>
+             
+                  <historyChart :RTData="RTData" :tempData="tempData"></historyChart>
+
             </a-col>
           </a-row>
       </a-layout-content>
@@ -104,19 +103,17 @@ export default {
         var value = Math.random()*1+25;
         
         // 更新时间/real-time-win/仪表盘图片轮播 的处理
-        // setInterval(()=>{
-        //   console.log("RTData-test "+this.RTData.humidity)
-        //   this.RTData.temperature = this.RTData.temperature + 1 
-        //   this.RTData.humidity = this.RTData.humidity + 1
-        // }, 2000);
+        setInterval(()=>{
+          this.RTData.temperature = (parseFloat(this.RTData.temperature) + Math.random()*0.2 - 0.1).toFixed(1) 
+          this.RTData.humidity = (parseFloat(this.RTData.humidity) + Math.random()*0.2 - 0.1).toFixed(1)
+        }, 2000);
         var picIndex = 0;
         setInterval(() => {
           picIndex = picIndex + 1
           if(picIndex > 8) picIndex = 1
           this.gaugeSrc = `images/pic-gauge/test${picIndex}.bmp`
           this.date = new Date()
-        }, 10000);7
-        console.log("device2: "+this.id)
+        }, 10000);
 
         
 /*        $.ajax({

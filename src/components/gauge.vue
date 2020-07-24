@@ -35,14 +35,30 @@ export default {
                     axisLine: {
                         lineStyle: {
                             width: 15, // 修改宽度
-                            // 0-40 red  40-60 green 60-100 yellow
+                            color: [[0.4, 'red'], [0.6, '#0AC267'], [1, '#FECB02']], // 0-40 red  40-60 green 60-100 yellow
+                            opacity: 0.8
                         }
                     },
+                    splitLine: {
+                        show: false
+                    },
                     axisLabel: {
-                        distance: -10 // 刻度值与表盘的距离
+                        color: 'black',
+                        distance: -10, // 刻度值与表盘的距离
+                    },
+                    axisTick: {
+                        length: 5
                     },
                     detail: {formatter: '{value}%'},
-                    data: [{value: 55, name: '正常'}]
+                    data: [{value: 55, name: '正 常'}],
+                    pointer: {
+                        width: 5
+                    },
+                    title: {
+                        // fontWeight: 'bold',
+                        fontSize: '20'
+                    },
+                    
                 }
             ]
         };

@@ -18,14 +18,14 @@
         <span class="avatar-text">{{user.name}}</span>
       </div>
       <a-menu theme="dark" mode="inline" :default-selected-keys="['16']">
-        <a-menu-item key="16">
+        <a-menu-item key="16" v-on:click="select(16)">
         <a-icon type="home" />
           <span class="nav-text"> 概况 </span>
         </a-menu-item>
         <a-sub-menu key="17">
           <span slot="title"><a-icon type="user" /><span> 我的设备 </span></span>
           <a-menu-item key="1" v-on:click="select(0)">
-            <router-link to="device"> {{device[0].id}}</router-link> 
+            <router-link to="/device"> {{device[0].id}}</router-link> 
           </a-menu-item>
           <a-menu-item key="2" v-on:click="select(1)">
             <router-link to="/device"> {{device[1].id}}</router-link> 
@@ -120,9 +120,15 @@ export default {
   },
   methods: {
     select(index){
-      let param = { id: this.device[index].id }
-      this.$router.push({path:"/device", query:param}) 
-      console.log("param.Id: "+ param.id);
+      let param;
+      if(index>=0 && index<=14){
+        param = { id: this.device[index].id }
+        this.$router.push({path:"/device", query:param}) 
+        console.log("param.Id: "+ param.id);
+      }
+      else{
+        this.$router.push({path:"/index"})
+      }
     },
     onCollapse(collapsed, type) {   //面板收缩
       console.log(collapsed, type);
