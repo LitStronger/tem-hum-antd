@@ -33,8 +33,7 @@ export default {
   },
   methods:{
     historyChart(){
-        console.log("history ")
-        console.log("end")
+
         var myChart = echarts.init(document.getElementById('main'));
 
         var defaultData=[]

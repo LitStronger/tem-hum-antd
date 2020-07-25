@@ -83,6 +83,8 @@
 <script src="/js/jquery.js"></script>
 
 <script>
+import Vue from 'vue'
+
 export default {
   components: {
   },
@@ -108,10 +110,10 @@ export default {
       onJump(){
 
         let token = ''
+        let id
+        // let idList = []
         let router = this.$router;
-        function testFun(){
-          this.router
-        }       
+     
         $.ajax({
             type: 'POST',
             url: "http://api.huozhiniao.cn/api/user/v2/login",
@@ -126,12 +128,23 @@ export default {
                 if(res.success == false) 
                   alert("用户名或密码错误")
                 else{
+                  let idList = []
                   token = res.data.token;
+                  idList = res.data.deviceIds
                   console.log("token:"+token);
-                  router.push({ path: '/index' });
+
+                  Vue.prototype.$userMsg = res.data
+                  
+                  // console.log("idList:"+idList);
+                  let userInfo = {
+                    token: token,
+                    id: idList[0]
+                  }
+                  router.push({ path: '/platform', query: userInfo, params: idList});
                 }
             },
         })
+        // router.push({ path: '/platform', query:{token:} });
 
       }
   }

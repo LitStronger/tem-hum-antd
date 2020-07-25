@@ -12,7 +12,7 @@
                     slot="cover"
                     :src="deviceSrc"
                   />
-                  <span style="display: ">设备编号: {{this.id}}</span>
+                  <span style="display: ">设备编号: {{this.userInfo.name}}</span>
               </a-card>
             </a-col>
             <a-col :span="1"></a-col>
@@ -63,7 +63,7 @@ import realTimeWin from './components/real-time-win'
 import gauge from './components/gauge'
 import historyChart from './components/history-chart'
 export default {
-  props: ['id'],
+  props: ['userInfo'],
   data () {
     return{
       date: new Date(),
@@ -92,22 +92,23 @@ export default {
         // 基于准备好的dom，初始化echarts实例
 //        var myChart = echarts.init(document.getElementById('main'));
         var tempData = [];        // 温度
-//        var TempUpdate = [];
-//        var humiData = [];        // 湿度
-//        var humiUpdate = [];
+        var humiData = [];
+        var RTData = {}
         var oneDay = 24 * 3600 * 1000;
         var now = new Date() - 1*oneDay;
 
         var oneMin = 60 *1000
         var oneHour = 3600*1000
-        var value = Math.random()*1+25;
+        var value = Math.random()*1+30;
         
         // 更新时间/real-time-win/仪表盘图片轮播 的处理
         setInterval(()=>{
           this.RTData.temperature = (parseFloat(this.RTData.temperature) + Math.random()*0.2 - 0.1).toFixed(1) 
           this.RTData.humidity = (parseFloat(this.RTData.humidity) + Math.random()*0.2 - 0.1).toFixed(1)
         }, 2000);
+
         var picIndex = 0;
+
         setInterval(() => {
           picIndex = picIndex + 1
           if(picIndex > 8) picIndex = 1
@@ -115,59 +116,55 @@ export default {
           this.date = new Date()
         }, 10000);
 
-        
-/*        $.ajax({
-            type: 'POST',
-            url: "http://api.huozhiniao.cn/api/user/v2/login",
-            data: {
-                mobile: 'test',
-                password: '123456'
-            },
-            success: function(res){
-                console.log(res);
-                let token = res.data.token;
-                console.log("token:"+token);
-                    $.ajax({
+      
+
+        let token = this.$userMsg.token
+        let deviceId = this.userInfo.id
+        console.log(this.userInfo)
+        console.log("echart: "+ token)
+        console.log("echart id: "+ deviceId)
+
+        tempData = this.tempData
+        RTData = this.RTData
+
+        if(!deviceId){
+        //history-chart 随机数生成 
+          console.log("random data")
+          for (var i = 0; i < 2; i++) {
+            tempData.push(randomData());
+          }
+          this.tempData = tempData  
+        }
+        else{
+            $.ajax({
                         type: 'POST',
                         headers: {
                             "fbtoken" : `${token}`,
                         },
                         url: "http://api.huozhiniao.cn/api/sensor/records",
                         data: {
-                            deviceId: '89860412129'
+                            deviceId: `${deviceId}`
                         },
                         success: function(res){
-                            console.log(res.data.count)*/
+                            console.log(res.data.count)
 
-                            // history-chart 数据处理 
-                            for (var i = 0; i < 1200; i++) {
-                                tempData.push(randomData());
+                            // console.log(tempData)
+                            for(var i=0; i < 100; i++){
+                                let listItem = {}
+                                listItem = res.data.list[i];
+                                // console.log(listItem)
+                                humiData.push(listItem.humidity)
+                                tempData.push(formatData(listItem))
                             }
-                            this.tempData = tempData
-
-                            // setInterval(()=>{
-                            //   console.log("chartData-test ")
-                            //   this.tempData.shift();
-                            //   this.tempData.push(randomData());
-                            // }, 100);
-
-                            //console.log(tempData)
-                            // for(var i=0; i < 100; i++){
-                            //     let listItem = {}
-                            //     listItem = res.data.list[i];
-                            //     console.log(listItem)
-                            //     humiData.push(listItem.humidity)
-
-                            //     tempData.push(formatData(listItem))
-                            // }
+                            RTData.temperature = tempData[0].value[1]
+                            RTData.humidity = humiData[0]
                             // TempUpdate = tempData[0].value[1];
                             // console.log(tempData[0])
                             // humiUpdate = humiData[0];
                             // myChart.setOption(option);
-             /*           },
+                        },
                     });
-            },
-        });*/
+        }
 
 
         function formatData(listItem){
@@ -178,7 +175,7 @@ export default {
             temp = listItem.temp;
             timestamp = listItem.lastDataTime;
             itemDate = new Date(timestamp);
-            console.log(itemDate)
+            // console.log(itemDate)
 
             var h=itemDate.getHours();
             var mm=itemDate.getMinutes();
@@ -207,14 +204,25 @@ export default {
 
                 ]
             };
-        } 
+        }
+         
     },
     
-
+    
   },
   mounted(){
       this.myChart();
      // this.myGauge();
+  },
+  watch: {
+            userInfo(newVal,oldVal){
+                this.userInfo = newVal;  //newVal即是chartData
+                console.log(newVal)
+                console.log("watch-userInfo")
+                this.tempData = []
+                this.myChart();
+
+            }
   },
 
 };

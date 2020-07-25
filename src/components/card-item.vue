@@ -7,12 +7,12 @@
     />
     <!-- <a-card-meta v-bind:title="'deviceId'+deviceId">
     </a-card-meta> -->
-    <span>{{deviceId}}</span>
+    <span>{{deviceName}}</span>
   </a-card>
 </template>
 <script>
 export default {
-  props: ['deviceId'],
+  props: ['deviceName'],
   data () {
     return {
       //deviceId: '0011'

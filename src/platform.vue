@@ -25,51 +25,51 @@
         <a-sub-menu key="17">
           <span slot="title"><a-icon type="user" /><span> 我的设备 </span></span>
           <a-menu-item key="1" v-on:click="select(0)">
-            <router-link to="/device"> {{device[0].id}}</router-link> 
+            <span class="nav-text"> {{device[0].name}} </span>
+            <!-- <router-link to="/device"> {{device[0].name}}</router-link>  -->
           </a-menu-item>
           <a-menu-item key="2" v-on:click="select(1)">
-            <router-link to="/device"> {{device[1].id}}</router-link> 
+            <span class="nav-text"> {{device[1].name}} </span>
           </a-menu-item>
           <a-menu-item key="3" v-on:click="select(2)">
-            <router-link to="/device"> {{device[2].id}}</router-link> 
+            <span class="nav-text"> {{device[2].name}} </span>
           </a-menu-item>
           <a-menu-item key="4" v-on:click="select(3)">
-            <router-link to="/device"> {{device[3].id}}</router-link> 
+            <span class="nav-text"> {{device[3].name}} </span>
           </a-menu-item>
           <a-menu-item key="5" v-on:click="select(4)">
-            <router-link to="/device"> {{device[4].id}}</router-link> 
+            <span class="nav-text"> {{device[4].name}} </span>
           </a-menu-item>
           <a-menu-item key="6" v-on:click="select(5)">
-            <router-link to="/device"> {{device[5].id}}</router-link> 
+            <span class="nav-text"> {{device[5].name}} </span>
           </a-menu-item>
           <a-menu-item key="7" v-on:click="select(6)">
-            <router-link to="/device"> {{device[6].id}}</router-link> 
+            <span class="nav-text"> {{device[6].name}} </span>
           </a-menu-item>
           <a-menu-item key="8" v-on:click="select(7)">
-            <router-link to="/device"> {{device[7].id}}</router-link> 
+            <span class="nav-text"> {{device[7].name}} </span>
           </a-menu-item>
           <a-menu-item key="9" v-on:click="select(8)">
-            <router-link to="/device"> {{device[8].id}}</router-link> 
+            <span class="nav-text"> {{device[8].name}} </span>
           </a-menu-item>
           <a-menu-item key="10" v-on:click="select(9)">
-            <router-link to="/device"> {{device[9].id}}</router-link> 
+            <span class="nav-text"> {{device[9].name}} </span>
           </a-menu-item>
           <a-menu-item key="11" v-on:click="select(10)">
-            <router-link to="/device"> {{device[10].id}}</router-link> 
+            <span class="nav-text"> {{device[10].name}} </span>
           </a-menu-item>
           <a-menu-item key="12" v-on:click="select(11)">
-            <router-link to="/device"> {{device[11].id}}</router-link> 
+            <span class="nav-text"> {{device[11].name}} </span>
           </a-menu-item>
           <a-menu-item key="13" v-on:click="select(12)">
-            <router-link to="/device"> {{device[12].id}}</router-link> 
+            <span class="nav-text"> {{device[12].name}} </span>
           </a-menu-item>
           <a-menu-item key="14" v-on:click="select(13)">
-            <router-link to="/device"> {{device[13].id}}</router-link> 
+            <span class="nav-text"> {{device[13].name}} </span>
           </a-menu-item>
           <a-menu-item key="15" v-on:click="select(14)">
-            <router-link to="/device"> {{device[14].id}}</router-link> 
+            <span class="nav-text"> {{device[14].name}} </span>
           </a-menu-item> 
-
         </a-sub-menu>
       </a-menu>
     </a-layout-sider>
@@ -93,38 +93,49 @@
 <script>
 
 export default {
+  props:['token'],
   data () {
     return{
       user:{
         name: "用户0001"
       },
       device:[
-        { id: "测试-01" },
-        { id: "测试-02" },
-        { id: "测试-03" },
-        { id: "测试-04" },
-        { id: "测试-05" },
-        { id: "测试-06" },
-        { id: "测试-07" },
-        { id: "测试-08" },
-        { id: "测试-09" },
-        { id: "测试-10" },
-        { id: "测试-11" },
-        { id: "测试-12" },
-        { id: "测试-13" },
-        { id: "测试-14" },
-        { id: "测试-15" },
+        { name: "测试-01" },
+        { name: "测试-02" },
+        { name: "测试-03" },
+        { name: "测试-04" },
+        { name: "测试-05" },
+        { name: "测试-06" },
+        { name: "测试-07" },
+        { name: "测试-08" },
+        { name: "测试-09" },
+        { name: "测试-10" },
+        { name: "测试-11" },
+        { name: "测试-12" },
+        { name: "测试-13" },
+        { name: "测试-14" },
+        { name: "测试-15" },
       ],
       logoSrc: require('./assets/logo.png')
     }
   },
   methods: {
     select(index){
+      // let mypath = window.location.href.split("?")[1] //分割url
+      // let token = mypath.split('&')[0].split('=')[1]
+      // let id = mypath.split('&')[1].split('=')[1]
+      // console.log(token+" "+id)
+      // console.log(this.$router.query)
+
       let param;
       if(index>=0 && index<=14){
-        param = { id: this.device[index].id }
+        param = {
+          name: this.device[index].name,
+          id: this.$userMsg.deviceIds[index],
+          token: this.$userMsg.token
+        }
+
         this.$router.push({path:"/device", query:param}) 
-        console.log("param.Id: "+ param.id);
       }
       else{
         this.$router.push({path:"/index"})
