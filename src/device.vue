@@ -34,7 +34,6 @@
                           slot="cover"
                           class="picGauge"
                           :src="gaugeSrc"
-                          @click="imgShow"
                         />
                         <span style="display:block; margin-top:-13px">点击可查看原图</span>
                     </a-card>
@@ -42,11 +41,8 @@
                 </a-row>
               </a-card>
             </a-col>
-
             <a-col :span="24" style="margin-top: 15px">
-             
                   <historyChart :RTData="RTData" :tempData="tempData"></historyChart>
-
             </a-col>
           </a-row>
       </a-layout-content>
@@ -55,8 +51,6 @@
 </template>
 
 <script src="/js/echarts.min.js"></script>
-
-
 
 <script>
 import realTimeWin from './components/real-time-win'
@@ -73,7 +67,6 @@ export default {
         humidity: 80.1
       },
       deviceSrc: require('./assets/device2.png'),
-      //gaugeSrc: require('./assets/gauge.png'),
       gaugeSrc: "images/pic-gauge/test1.bmp",
       value: 3
     }
@@ -84,13 +77,8 @@ export default {
     historyChart
   },
   methods: {
-    imgShow(){
-      console.log("imgShow click");
 
-    },
-    myChart(){
-        // 基于准备好的dom，初始化echarts实例
-//        var myChart = echarts.init(document.getElementById('main'));
+    getDeviveData(){
         var tempData = [];        // 温度
         var humiData = [];
         var RTData = {}
@@ -106,23 +94,16 @@ export default {
           this.RTData.temperature = (parseFloat(this.RTData.temperature) + Math.random()*0.2 - 0.1).toFixed(1) 
           this.RTData.humidity = (parseFloat(this.RTData.humidity) + Math.random()*0.2 - 0.1).toFixed(1)
         }, 2000);
-
         var picIndex = 0;
-
         setInterval(() => {
           picIndex = picIndex + 1
           if(picIndex > 8) picIndex = 1
           this.gaugeSrc = `images/pic-gauge/test${picIndex}.bmp`
           this.date = new Date()
         }, 10000);
-
       
-
         let token = this.$userMsg.token
         let deviceId = this.userInfo.id
-        console.log(this.userInfo)
-        console.log("echart: "+ token)
-        console.log("echart id: "+ deviceId)
 
         tempData = this.tempData
         RTData = this.RTData
@@ -137,36 +118,28 @@ export default {
         }
         else{
             $.ajax({
-                        type: 'POST',
-                        headers: {
-                            "fbtoken" : `${token}`,
-                        },
-                        url: "http://api.huozhiniao.cn/api/sensor/records",
-                        data: {
-                            deviceId: `${deviceId}`
-                        },
-                        success: function(res){
-                            console.log(res.data.count)
+                type: 'POST',
+                headers: {
+                  "fbtoken" : `${token}`,
+                },
+                url: "http://api.huozhiniao.cn/api/sensor/records",
+                data: {
+                  deviceId: `${deviceId}`
+                },
+                success: function(res){
+                  console.log(res.data.count)
+                  for(var i=0; i < res.data.count; i++){
+                    let listItem = {}
+                    listItem = res.data.list[i];
+                    humiData.push(listItem.humidity)
+                    tempData.push(formatData(listItem))
+                  }
+                  RTData.temperature = tempData[0].value[1]
+                  RTData.humidity = humiData[0]
 
-                            // console.log(tempData)
-                            for(var i=0; i < 100; i++){
-                                let listItem = {}
-                                listItem = res.data.list[i];
-                                // console.log(listItem)
-                                humiData.push(listItem.humidity)
-                                tempData.push(formatData(listItem))
-                            }
-                            RTData.temperature = tempData[0].value[1]
-                            RTData.humidity = humiData[0]
-                            // TempUpdate = tempData[0].value[1];
-                            // console.log(tempData[0])
-                            // humiUpdate = humiData[0];
-                            // myChart.setOption(option);
-                        },
-                    });
+                },
+            });
         }
-
-
         function formatData(listItem){
             let temp
             let timestamp
@@ -175,7 +148,6 @@ export default {
             temp = listItem.temp;
             timestamp = listItem.lastDataTime;
             itemDate = new Date(timestamp);
-            // console.log(itemDate)
 
             var h=itemDate.getHours();
             var mm=itemDate.getMinutes();
@@ -201,28 +173,22 @@ export default {
                 value: [
                     [now.getFullYear(), now.getMonth() + 1, now.getDate(),].join('/')+ ' '+h + ':'+ mm,
                     value
-
                 ]
             };
         }
-         
     },
-    
-    
   },
   mounted(){
-      this.myChart();
-     // this.myGauge();
+      this.getDeviveData();
   },
   watch: {
-            userInfo(newVal,oldVal){
-                this.userInfo = newVal;  //newVal即是chartData
-                console.log(newVal)
-                console.log("watch-userInfo")
-                this.tempData = []
-                this.myChart();
-
-            }
+    userInfo(newVal,oldVal){
+      this.userInfo = newVal;  //newVal即是chartData
+      console.log(newVal)
+      console.log("watch-userInfo")
+      this.tempData = []
+      this.getDeviveData();
+      }
   },
 
 };
@@ -238,7 +204,6 @@ export default {
   color: rgba(255,255,255, 0.7);
   margin-bottom: 10px;
 }
-
 .picGauge {
   border-radius: 30px;
  height: 200px;

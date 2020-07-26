@@ -14,9 +14,7 @@ import 'vue-directive-image-previewer/dist/assets/style.css'
 Vue.use(VueDirectiveImagePreviewer)
 Vue.use(Antd)
 
-
 Vue.config.productionTip = false
-
 
 new Vue({
   router,

@@ -5,8 +5,7 @@
       alt="example"
       src="../assets/device.png"
     />
-    <!-- <a-card-meta v-bind:title="'deviceId'+deviceId">
-    </a-card-meta> -->
+
     <span>{{deviceName}}</span>
   </a-card>
 </template>

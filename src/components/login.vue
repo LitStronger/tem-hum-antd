@@ -90,7 +90,6 @@ export default {
   },
   data () {
     return {
-
       customActiveKey: 'tab1',
       loginBtn: false,
       loginType: 0,
@@ -103,17 +102,15 @@ export default {
         loginBtn: false,
         loginType: 0,
         smsSendBtn: false
-      }
+      },
     }
   },
   methods: {
       onJump(){
 
         let token = ''
-        let id
-        // let idList = []
         let router = this.$router;
-     
+
         $.ajax({
             type: 'POST',
             url: "http://api.huozhiniao.cn/api/user/v2/login",
@@ -135,7 +132,6 @@ export default {
 
                   Vue.prototype.$userMsg = res.data
                   
-                  // console.log("idList:"+idList);
                   let userInfo = {
                     token: token,
                     id: idList[0]
@@ -144,7 +140,6 @@ export default {
                 }
             },
         })
-        // router.push({ path: '/platform', query:{token:} });
 
       }
   }

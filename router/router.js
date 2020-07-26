@@ -25,9 +25,6 @@ export default new VueRouter({
             name: 'default',
             redirect: "/index",
             component: platform,
-            // props: (route)=>({
-            //     token: route.query.token
-            // }),
             children:[
                 {            
                     path: '/index',
@@ -37,11 +34,6 @@ export default new VueRouter({
                         userInfo: route.query
                     })
                 },
-                // {
-                //     path: 'device',
-                //     name: 'device',
-                //     component: device,
-                // },
                 {
                     path: '/device',
                     name: 'device',
@@ -52,16 +44,7 @@ export default new VueRouter({
                 }
             ]
         },
-        // {
-        //     path:'/index',
-        //     name: 'index',
-        //     component: index,
-        // },
-        // {
-        //     path:'/device',
-        //     name: 'device',
-        //     component: device,
-        // },
+
     ]
 })
 

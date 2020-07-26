@@ -121,12 +121,6 @@ export default {
   },
   methods: {
     select(index){
-      // let mypath = window.location.href.split("?")[1] //分割url
-      // let token = mypath.split('&')[0].split('=')[1]
-      // let id = mypath.split('&')[1].split('=')[1]
-      // console.log(token+" "+id)
-      // console.log(this.$router.query)
-
       let param;
       if(index>=0 && index<=14){
         param = {
@@ -134,7 +128,7 @@ export default {
           id: this.$userMsg.deviceIds[index],
           token: this.$userMsg.token
         }
-
+      console.log('platform-testData', this.$testData)
         this.$router.push({path:"/device", query:param}) 
       }
       else{
