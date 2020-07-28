@@ -96,7 +96,7 @@ export default {
   methods: {
     select(index){
       let param = { 
-        token: this.$userMsg.token,
+        // token: this.$userMsg.token,
         id: this.$userMsg.deviceIds[index],
         name: this.device[index].name, 
         }

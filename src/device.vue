@@ -93,16 +93,21 @@ export default {
         setInterval(()=>{
           this.RTData.temperature = (parseFloat(this.RTData.temperature) + Math.random()*0.2 - 0.1).toFixed(1) 
           this.RTData.humidity = (parseFloat(this.RTData.humidity) + Math.random()*0.2 - 0.1).toFixed(1)
-        }, 2000);
+        }, 60000);
         var picIndex = 0;
         setInterval(() => {
           picIndex = picIndex + 1
           if(picIndex > 8) picIndex = 1
           this.gaugeSrc = `images/pic-gauge/test${picIndex}.bmp`
           this.date = new Date()
-        }, 10000);
-      
+        }, 60000);
+        setTimeout(() => {
+                  console.log('device', this.$userMsg)
+
+        }, 1000);
+        console.log('device', this.$userMsg)
         let token = this.$userMsg.token
+        console.log('device', token)
         let deviceId = this.userInfo.id
 
         tempData = this.tempData
