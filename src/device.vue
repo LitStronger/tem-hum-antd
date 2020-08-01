@@ -63,8 +63,8 @@ export default {
       date: new Date(),
       tempData: [],
       RTData: {     //real-time data
-        temperature: 25.1,
-        humidity: 80.1
+        temperature: 0,
+        humidity: 0
       },
       deviceSrc: require('./assets/device2.png'),
       gaugeSrc: "images/pic-gauge/test1.bmp",
@@ -87,13 +87,14 @@ export default {
 
         var oneMin = 60 *1000
         var oneHour = 3600*1000
-        var value = Math.random()*1+30;
+        // var value = Math.random()*1+30;
+        var value = 0
         
         // 更新时间/real-time-win/仪表盘图片轮播 的处理
-        setInterval(()=>{
-          this.RTData.temperature = (parseFloat(this.RTData.temperature) + Math.random()*0.2 - 0.1).toFixed(1) 
-          this.RTData.humidity = (parseFloat(this.RTData.humidity) + Math.random()*0.2 - 0.1).toFixed(1)
-        }, 60000);
+        // setInterval(()=>{
+        //   this.RTData.temperature = (parseFloat(this.RTData.temperature) + Math.random()*0.2 - 0.1).toFixed(1) 
+        //   this.RTData.humidity = (parseFloat(this.RTData.humidity) + Math.random()*0.2 - 0.1).toFixed(1)
+        // }, 60000);
         var picIndex = 0;
         setInterval(() => {
           picIndex = picIndex + 1
@@ -101,19 +102,15 @@ export default {
           this.gaugeSrc = `images/pic-gauge/test${picIndex}.bmp`
           this.date = new Date()
         }, 60000);
-        setTimeout(() => {
-                  console.log('device', this.$userMsg)
 
-        }, 1000);
-        console.log('device', this.$userMsg)
         let token = this.$userMsg.token
-        console.log('device', token)
         let deviceId = this.userInfo.id
 
         tempData = this.tempData
         RTData = this.RTData
 
         if(!deviceId){
+          alert("暂无设备！")
         //history-chart 随机数生成 
           console.log("random data")
           for (var i = 0; i < 2; i++) {
@@ -133,18 +130,54 @@ export default {
                 },
                 success: function(res){
                   console.log(res.data.count)
-                  for(var i=0; i < res.data.count; i++){
-                    let listItem = {}
-                    listItem = res.data.list[i];
-                    humiData.push(listItem.humidity)
-                    tempData.push(formatData(listItem))
+                  if(res.data.count == 0){
+                    alert("暂无数据！")
+                    //history-chart 随机数生成 
+                    console.log("random data")
+                    for (var i = 0; i < 2; i++) {
+                      tempData.push(randomData());
+                    }
+                    this.tempData = tempData  
                   }
-                  RTData.temperature = tempData[0].value[1]
-                  RTData.humidity = humiData[0]
-
+                  else{
+                    for(var i=0; i < res.data.count; i++){
+                      let listItem = {}
+                      listItem = res.data.list[i];
+                      humiData.push(listItem.humidity)
+                      tempData.push(formatData(listItem))
+                    }
+                    RTData.temperature = tempData[0].value[1]
+                    RTData.humidity = humiData[0]
+                  }
                 },
             });
         }
+        /* websocket */        
+        function init() {
+            const url = 'ws://ws.huozhiniao.cn'; 
+            let ws = new WebSocket(url);
+            let client = Stomp.over(ws);
+            client.debug = false;
+            console.log('ws://ws.huozhiniao.cn')
+            let on_connect = function () {
+                client.subscribe("/exchange/exchange.web.topic/rk-web"+deviceId, function (data) {
+                    var msg = JSON.parse(data.body);
+                    console.log(msg);
+                    // TempUpdate = msg.temp
+                    // humiUpdate = msg.humidity
+                    RTData.temperature = msg.temp
+                    RTData.humidity = msg.humidity
+                });
+            console.log('connect is success');
+            };
+            let on_error = function () {
+                console.log('error');
+            };
+            //参数依次为：用户名，密码，连接后，出错，虚拟主机名
+            client.connect('xingke', 'xingke', on_connect, on_error, '/');
+        } 
+        init();
+
         function formatData(listItem){
             let temp
             let timestamp
@@ -172,7 +205,7 @@ export default {
             var mm=now.getMinutes();
             h=h>9?h:"0"+h;
             mm=mm>9?mm:"0"+mm;
-            value = value + Math.random() * 1-0.5;
+            // value = value + Math.random() * 1-0.5;
             return {
                 name: now.toString(),
                 value: [

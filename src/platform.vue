@@ -97,28 +97,44 @@ export default {
   data () {
     return{
       user:{
-        name: "用户0001"
+        name: "未登陆"
       },
       device:[
-        { name: "测试-01" },
-        { name: "测试-02" },
-        { name: "测试-03" },
-        { name: "测试-04" },
-        { name: "测试-05" },
-        { name: "测试-06" },
-        { name: "测试-07" },
-        { name: "测试-08" },
-        { name: "测试-09" },
-        { name: "测试-10" },
-        { name: "测试-11" },
-        { name: "测试-12" },
-        { name: "测试-13" },
-        { name: "测试-14" },
-        { name: "测试-15" },
+        // { name: "测试-01" },
+        // { name: "测试-02" },
+        // { name: "测试-03" },
+        // { name: "测试-04" },
+        // { name: "测试-05" },
+        // { name: "测试-06" },
+        // { name: "测试-07" },
+        // { name: "测试-08" },
+        // { name: "测试-09" },
+        // { name: "测试-10" },
+        // { name: "测试-11" },
+        // { name: "测试-12" },
+        // { name: "测试-13" },
+        // { name: "测试-14" },
+        // { name: "测试-15" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
+        { name: "暂无设备" },
       ],
       logoSrc: require('./assets/logo.png')
     }
   },
+
   methods: {
     select(index){
       let param;
@@ -141,6 +157,18 @@ export default {
     onBreakpoint(broken) {    //暂时不知道有啥用
       console.log(broken);
     },
+    updateName(){
+      for(let i=0; i<this.device.length; i++){
+        // console.log("dev list", this.$userMsg.deviceList[i])
+        if(this.$userMsg.deviceList[i]){
+          this.device[i].name = this.$userMsg.deviceList[i].name
+        }
+      }
+      this.user.name = this.$userMsg.username
+    }
+  },
+  mounted() {
+    this.updateName()
   },
 };
 </script>

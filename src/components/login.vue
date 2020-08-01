@@ -110,7 +110,7 @@ export default {
 
         let token = ''
         let router = this.$router;
-
+        let username = this.form.getFieldsValue(['username']).username
         $.ajax({
             type: 'POST',
             url: "http://api.huozhiniao.cn/api/user/v2/login",
@@ -128,9 +128,10 @@ export default {
                   let idList = []
                   token = res.data.token;
                   idList = res.data.deviceIds
-                  console.log("token:"+token);
 
-                  Vue.prototype.$userMsg = res.data
+                  let userMsg = res.data
+                  userMsg.username = username
+                  Vue.prototype.$userMsg = userMsg
                   
                   let userInfo = {
                     token: token,
