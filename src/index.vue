@@ -96,13 +96,15 @@ export default {
   methods: {
     select(index){
       let param = { 
-        // token: this.$userMsg.token,
         id: this.$userMsg.deviceIds[index],
         name: this.device[index].name, 
-        }
-      
-      console.log("index->device")
-      this.$router.push( {path:"/device", query:param} )      
+      }
+      if(!param.id){
+        alert("暂无设备！")
+      }
+      else{
+        this.$router.push( {path:"/device", query:param} )      
+      }
     },
     onCollapse(collapsed, type) {
       console.log(collapsed, type);

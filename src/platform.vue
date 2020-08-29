@@ -144,8 +144,13 @@ export default {
           id: this.$userMsg.deviceIds[index],
           token: this.$userMsg.token
         }
-      console.log('platform-testData', this.$testData)
-        this.$router.push({path:"/device", query:param}) 
+        console.log("id=",param.id)
+        if(!param.id){
+          alert("暂无设备！")
+        }
+        else{
+          this.$router.push({path:"/device", query:param}) 
+        }
       }
       else{
         this.$router.push({path:"/index"})

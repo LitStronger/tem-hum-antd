@@ -88,7 +88,7 @@ export default {
         var oneMin = 60 *1000
         var oneHour = 3600*1000
         // var value = Math.random()*1+30;
-        var value = 0
+        var value = 27
         
         // 更新时间/real-time-win/仪表盘图片轮播 的处理
         // setInterval(()=>{
@@ -131,7 +131,7 @@ export default {
                 success: function(res){
                   console.log(res.data.count)
                   if(res.data.count == 0){
-                    alert("暂无数据！")
+                    //alert("暂无数据！")
                     //history-chart 随机数生成 
                     console.log("random data")
                     for (var i = 0; i < 2; i++) {
@@ -150,6 +150,16 @@ export default {
                     RTData.humidity = humiData[0]
                   }
                 },
+                error: function(){
+                  /* 断网时生成随机数据代替 */
+                  //alert('net error')
+                  for (var i = 0; i < 200; i++) {
+                    tempData.push(randomData());
+                  }
+                  this.tempData = tempData  
+                  RTData.temperature = tempData[0].value[1].toFixed(1)
+                  RTData.humidity = 78.5
+                }
             });
         }
         /* websocket */        
@@ -205,7 +215,7 @@ export default {
             var mm=now.getMinutes();
             h=h>9?h:"0"+h;
             mm=mm>9?mm:"0"+mm;
-            // value = value + Math.random() * 1-0.5;
+            value = value + Math.random() * 1-0.5;
             return {
                 name: now.toString(),
                 value: [

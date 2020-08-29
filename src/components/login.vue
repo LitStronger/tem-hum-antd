@@ -140,6 +140,9 @@ export default {
                   router.push({ path: '/platform', query: userInfo, params: idList});
                 }
             },
+            error: function(){
+              alert('登陆失败，请检查网络')
+            }
         })
 
       }
