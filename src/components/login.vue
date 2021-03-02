@@ -7,11 +7,15 @@
       :form="form"
       style="width: 350px; margin: 10vh auto"
     >
-      <a-tabs
-        :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
-      >
-        <a-tab-pane tab="请 登 录 " key="tab1" >
-          <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin/ant.design )" />
+      <a-tabs :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }">
+        <a-tab-pane tab="请 登 录 " key="tab1">
+          <a-alert
+            v-if="isLoginError"
+            type="error"
+            showIcon
+            style="margin-bottom: 24px"
+            message="账户或密码错误（admin/ant.design )"
+          />
           <a-form-item>
             <a-input
               style="margin-top: 6vh"
@@ -20,11 +24,17 @@
               placeholder="请输入用户名"
               v-decorator="[
                 'username',
-                {rules: [{ required: true, message: '请输入用户名' }], validateTrigger: 'blur'}
-
+                {
+                  rules: [{ required: true, message: '请输入用户名' }],
+                  validateTrigger: 'blur',
+                },
               ]"
             >
-              <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+              <a-icon
+                slot="prefix"
+                type="user"
+                :style="{ color: 'rgba(0,0,0,.25)' }"
+              />
             </a-input>
           </a-form-item>
 
@@ -34,32 +44,43 @@
               placeholder="请输入密码"
               v-decorator="[
                 'password',
-                {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
+                {
+                  rules: [{ required: true, message: '请输入密码' }],
+                  validateTrigger: 'blur',
+                },
               ]"
             >
-              <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+              <a-icon
+                slot="prefix"
+                type="lock"
+                :style="{ color: 'rgba(0,0,0,.25)' }"
+              />
             </a-input-password>
           </a-form-item>
         </a-tab-pane>
       </a-tabs>
 
       <a-form-item>
-        <a-checkbox v-decorator="['rememberMe', { valuePropName: 'checked' }]">自动登录</a-checkbox>
+        <a-checkbox v-decorator="['rememberMe', { valuePropName: 'checked' }]"
+          >自动登录</a-checkbox
+        >
         <router-link
-          :to="{ name: 'recover', params: { user: 'aaa'} }"
+          :to="{ name: 'recover', params: { user: 'aaa' } }"
           class="forge-password"
-          style="float: right;"
-        >忘记密码</router-link>
+          style="float: right"
+          >忘记密码</router-link
+        >
       </a-form-item>
 
-      <a-form-item style="margin-top:24px">
+      <a-form-item style="margin-top: 24px">
         <a-button
           size="large"
           type="primary"
           htmlType="submit"
           class="login-button"
           @click="onJump"
-        >确定</a-button>
+          >确定</a-button
+        >
       </a-form-item>
 
       <div class="user-login-other">
@@ -76,21 +97,19 @@
         <!-- <router-link class="register" :to="{ name: 'register' }">注册账户</router-link> -->
       </div>
     </a-form>
-
   </div>
 </template>
 
 <script src="/js/jquery.js"></script>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue";
 
 export default {
-  components: {
-  },
-  data () {
+  components: {},
+  data() {
     return {
-      customActiveKey: 'tab1',
+      customActiveKey: "tab1",
       loginBtn: false,
       loginType: 0,
       isLoginError: false,
@@ -101,53 +120,49 @@ export default {
         time: 60,
         loginBtn: false,
         loginType: 0,
-        smsSendBtn: false
+        smsSendBtn: false,
       },
-    }
+    };
   },
   methods: {
-      onJump(){
+    onJump() {
+      let token = "";
+      let router = this.$router;
+      let username = this.form.getFieldsValue(["username"]).username;
+      $.ajax({
+        type: "POST",
+        url: "http://api.huozhiniao.cn/api/user/v2/login",
+        data: {
+          mobile: this.form.getFieldsValue(["username"]).username,
+          password: this.form.getFieldsValue(["password"]).password,
+          // mobile: 'test',
+          // password: '123456'
+        },
+        success: function (res) {
+          if (res.success == false) alert("用户名或密码错误");
+          else {
+            let idList = [];
+            token = res.data.token;
+            idList = res.data.deviceIds;
 
-        let token = ''
-        let router = this.$router;
-        let username = this.form.getFieldsValue(['username']).username
-        $.ajax({
-            type: 'POST',
-            url: "http://api.huozhiniao.cn/api/user/v2/login",
-            data: {
-                mobile: this.form.getFieldsValue(['username']).username,
-                password: this.form.getFieldsValue(['password']).password
-                // mobile: 'test',
-                // password: '123456'
-            },
-            success: function(res){
-                console.log(res);
-                if(res.success == false) 
-                  alert("用户名或密码错误")
-                else{
-                  let idList = []
-                  token = res.data.token;
-                  idList = res.data.deviceIds
+            let userMsg = res.data;
+            userMsg.username = username;
+            Vue.prototype.$userMsg = userMsg;
 
-                  let userMsg = res.data
-                  userMsg.username = username
-                  Vue.prototype.$userMsg = userMsg
-                  
-                  let userInfo = {
-                    token: token,
-                    id: idList[0]
-                  }
-                  router.push({ path: '/platform', query: userInfo, params: idList});
-                }
-            },
-            error: function(){
-              alert('登陆失败，请检查网络')
-            }
-        })
-
-      }
-  }
-}
+            let userInfo = {
+              token: token,
+              id: idList[0],
+            };
+            router.push({ path: "/platform", query: userInfo });
+          }
+        },
+        error: function () {
+          alert("登陆失败，请检查网络");
+        },
+      });
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

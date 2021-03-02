@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-const login = ()=>import('../src/components/login')
-const platform = ()=>import('../src/platform')
-const device = ()=>import('../src/device')
-const index = ()=>import('../src/index')
+const login = () => import('../components/login')
+const platform = () => import('../platform')
+const device = () => import('../device')
+const index = () => import('../index')
 
 
 Vue.use(VueRouter); // 注册路由
 
 export default new VueRouter({
-    routes:[
+    routes: [
         {
             path: '/',
             component: login,
@@ -23,22 +23,22 @@ export default new VueRouter({
         {
             path: '/platform',
             name: 'default',
-            redirect: "/index",
+            redirect: "/platform/index",
             component: platform,
-            children:[
-                {            
-                    path: '/index',
+            children: [
+                {
+                    path: 'index',
                     name: 'index',
                     component: index,
-                    props: (route)=>({
+                    props: (route) => ({
                         userInfo: route.query
                     })
                 },
                 {
-                    path: '/device',
+                    path: 'device',
                     name: 'device',
                     component: device,
-                    props: (route)=>({
+                    props: (route) => ({
                         userInfo: route.query
                     })
                 }

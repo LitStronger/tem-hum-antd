@@ -6,7 +6,7 @@ import 'ant-design-vue/dist/antd.css';
 
 
 //引入路由
-import router from '../router/router' 
+import router from './router/router.js' 
 
 //图片查看
 import VueDirectiveImagePreviewer from 'vue-directive-image-previewer'
@@ -18,6 +18,6 @@ Vue.use(Antd)
 Vue.config.productionTip = false
 
 new Vue({
-  router,
+  router: router,
   render: h => h(App),
 }).$mount('#app')

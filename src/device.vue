@@ -88,7 +88,7 @@ export default {
         var oneMin = 60 *1000
         var oneHour = 3600*1000
         // var value = Math.random()*1+30;
-        var value = 27
+        var value = 23
         
         // 更新时间/real-time-win/仪表盘图片轮播 的处理
         // setInterval(()=>{
@@ -134,10 +134,12 @@ export default {
                     //alert("暂无数据！")
                     //history-chart 随机数生成 
                     console.log("random data")
-                    for (var i = 0; i < 2; i++) {
+                    for (var i = 0; i < 200; i++) {
                       tempData.push(randomData());
                     }
                     this.tempData = tempData  
+                    RTData.temperature = tempData[0].value[1].toFixed(1)
+                    RTData.humidity = 78.5
                   }
                   else{
                     for(var i=0; i < res.data.count; i++){
